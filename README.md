@@ -14,14 +14,14 @@ Aplikacja jest responsywna i działa na urządzeniach desktopowych oraz mobilnyc
 
 ## 3. Lista komponentów
 
-| Komponent         | Opis |
-|------------------|------|
-| `PostList`        | Lista wszystkich postów. |
-| `PostItem`        | Pojedynczy post w liście, z możliwością dodania do ulubionych. |
-| `PostFilter`      | Filtruje posty po tytule lub użytkowniku. |
-| `PostDetail`      | Wyświetla szczegóły pojedynczego posta. |
-| `FavoritesList`   | Lista ulubionych postów. |
-| `FavoriteItem`    | Pojedynczy ulubiony post z możliwością usunięcia. |
+| Komponent       | Opis |
+|-----------------|------|
+| `Posts`         | Lista wszystkich postów. |
+| `Post`          | Pojedynczy post w liście, z możliwością dodania do ulubionych. |
+| `PostFilter`    | Filtruje posty po tytule lub użytkowniku. |
+| `PostDetails`   | Wyświetla szczegóły pojedynczego posta. |
+| `FavoritesList` | Lista ulubionych postów. |
+| `FavoriteItem`  | Pojedynczy ulubiony post z możliwością usunięcia. |
 
 ---
 
