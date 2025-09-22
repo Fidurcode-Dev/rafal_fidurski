@@ -20,7 +20,7 @@ export const PostsStore = signalStore(
       patchState(store, { loading: true });
 
       postService
-        .get()
+        .list()
         .pipe(
           tap((data: Post[]): void => patchState(store, { posts: data })),
           finalize((): void => patchState(store, { loading: false }))

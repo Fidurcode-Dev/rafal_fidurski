@@ -23,6 +23,9 @@ export class Posts implements OnInit {
   store = inject(PostsStore);
   filterTerm = signal('');
   showFavoritesPosts = signal(false);
+  selectedUserId = signal<number | ''>('');
+
+  enterClass = signal('enter-animation');
 
   ngOnInit(): void {
     this.store.loadPosts();
@@ -42,11 +45,18 @@ export class Posts implements OnInit {
       posts = posts.filter(p => this.store.isFavorite(p));
     }
 
+    if (this.selectedUserId() !== '') {
+      posts = posts.filter(p => p.userId === Number(this.selectedUserId()));
+    }
+
     return posts;
   }
 
-  onFilterChanged(filter: { term: string; favorites: boolean }): void {
+  onFilterChanged(filter: { term: string; favorites: boolean; userId: number | '' }): void {
+
+    console.log(filter);
     this.filterTerm.set(filter.term);
     this.showFavoritesPosts.set(filter.favorites);
+    this.selectedUserId.set(filter.userId);
   }
 }

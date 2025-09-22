@@ -1,9 +1,10 @@
-<li class="relative border p-4 rounded bg-gray-100 shadow hover:shadow-md transition-shadow">
+<div class="relative border p-4 rounded bg-gray-100 shadow hover:shadow-md transition-shadow cursor-pointer"
+     [routerLink]="[post()?.id!]">
   <button
+    type="button"
     class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center transition-colors"
-    (click)="store.toggleFavorite(post()!)"
+    (click)="store.toggleFavorite(post()!); $event.stopPropagation()"
     aria-label="Add to favorites"
-    [ngClass]="store.isFavorite(post()!) ? 'text-yellow-500' : 'text-gray-400'"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -11,7 +12,7 @@
       stroke="currentColor"
       fill="currentColor"
       class="w-5 h-5 cursor-pointer"
-      [style.color]="store.isFavorite(post()!) ? '#facc15' : 'black'"
+      [ngClass]="store.isFavorite(post()!) ? 'text-yellow-500' : 'text-black'"
       stroke-width="2"
     >
       <path stroke-linecap="round" stroke-linejoin="round"
@@ -19,7 +20,6 @@
     </svg>
   </button>
 
-  <h2 class="font-semibold">{{ post()?.title }}</h2>
-  <p class="line-clamp-1 mt-2">{{ post()?.body }}</p>
-</li>
-
+  <h2 class="font-semibold mt-2">{{ post()?.title }}</h2>
+  <p class="line-clamp-1 mt-1">{{ post()?.body }}</p>
+</div>
