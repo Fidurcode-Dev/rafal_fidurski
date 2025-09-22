@@ -9,6 +9,7 @@ const initialState: PostState = {
   posts: [],
   loading: false,
   message: null,
+  favorites: []
 };
 
 export const PostsStore = signalStore(
@@ -27,6 +28,27 @@ export const PostsStore = signalStore(
         .subscribe({
           error: (): void => this.showMessage('Error while fetching posts.'),
         });
+    },
+
+    toggleFavorite(post: Post): void {
+      const currentFavorites = store.favorites();
+      const isFavorite = currentFavorites.some(p => p.id === post.id);
+
+      patchState(store, {
+        favorites: isFavorite
+          ? currentFavorites.filter(p => p.id !== post.id)
+          : [...currentFavorites, post],
+      });
+
+      const message = isFavorite
+        ? 'Post removed from favorites.'
+        : 'Post added to favorites.';
+
+      this.showMessage(message);
+    },
+
+    isFavorite(post: Post): boolean {
+      return store.favorites().some(p => p.id === post.id);
     },
 
     showMessage(msg: string): void {

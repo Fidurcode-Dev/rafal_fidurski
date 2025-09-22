@@ -1,4 +1,25 @@
-<li class="border p-4 rounded bg-gray-100">
+<li class="relative border p-4 rounded bg-gray-100 shadow hover:shadow-md transition-shadow">
+  <button
+    class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center transition-colors"
+    (click)="store.toggleFavorite(post()!)"
+    aria-label="Add to favorites"
+    [ngClass]="store.isFavorite(post()!) ? 'text-yellow-500' : 'text-gray-400'"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      fill="currentColor"
+      class="w-5 h-5 cursor-pointer"
+      [style.color]="store.isFavorite(post()!) ? '#facc15' : 'black'"
+      stroke-width="2"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round"
+            d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2z"/>
+    </svg>
+  </button>
+
   <h2 class="font-semibold">{{ post()?.title }}</h2>
-  <p class="line-clamp-1">{{ post()?.body }}</p>
+  <p class="line-clamp-1 mt-2">{{ post()?.body }}</p>
 </li>
+

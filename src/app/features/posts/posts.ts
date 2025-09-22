@@ -22,20 +22,31 @@ import {Post} from './interfaces/post.model';
 export class Posts implements OnInit {
   store = inject(PostsStore);
   filterTerm = signal('');
-
-  filteredPosts(): Post[] {
-    const searchTerm: string = this.filterTerm().toLowerCase();
-    return this.store.posts().filter(
-      ({ title, body }) =>
-        title.toLowerCase().includes(searchTerm) || body.toLowerCase().includes(searchTerm)
-    );
-  }
-
-  onFilterChanged(term: string): void {
-    this.filterTerm.set(term);
-  }
+  showFavoritesPosts = signal(false);
 
   ngOnInit(): void {
     this.store.loadPosts();
+  }
+
+  filteredPosts(): Post[] {
+    let posts: Post[] = this.store.posts();
+
+    const term = this.filterTerm().toLowerCase();
+    if (term) {
+      posts = posts.filter(p =>
+        p.title.toLowerCase().includes(term) || p.body.toLowerCase().includes(term)
+      );
+    }
+
+    if (this.showFavoritesPosts()) {
+      posts = posts.filter(p => this.store.isFavorite(p));
+    }
+
+    return posts;
+  }
+
+  onFilterChanged(filter: { term: string; favorites: boolean }): void {
+    this.filterTerm.set(filter.term);
+    this.showFavoritesPosts.set(filter.favorites);
   }
 }
