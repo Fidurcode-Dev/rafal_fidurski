@@ -1,11 +1,11 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
-import {PostsStore} from './services/posts.store';
-import {CommonModule} from '@angular/common';
-import {NgxSkeletonLoaderModule} from 'ngx-skeleton-loader';
-import {PostItem} from './post-item/post-item';
-import {Loader} from '../../shared/loader/loader';
-import {Filters} from '../../shared/filters/filters';
-import {Post} from './interfaces/post.model';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { PostsStore } from './services/posts.store';
+import { CommonModule } from '@angular/common';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { PostItem } from './post-item/post-item';
+import { Loader } from '../../shared/loader/loader';
+import { Filters } from '../../shared/filters/filters';
+import { Post } from './interfaces/post.model';
 
 @Component({
   selector: 'app-posts',
@@ -21,32 +21,41 @@ import {Post} from './interfaces/post.model';
 })
 export class Posts implements OnInit {
   store = inject(PostsStore);
+
   filterTerm = signal('');
   showFavoritesPosts = signal(false);
+  selectedUserId = signal<number | null>(null);
+
+  enterClass = signal('enter-animation');
 
   ngOnInit(): void {
-    this.store.loadPosts();
+    this.loadPosts();
+  }
+
+  private loadPosts(userId: number | null = null): void {
+    this.store.loadPosts(userId);
   }
 
   filteredPosts(): Post[] {
-    let posts: Post[] = this.store.posts();
-
-    const term = this.filterTerm().toLowerCase();
-    if (term) {
-      posts = posts.filter(p =>
-        p.title.toLowerCase().includes(term) || p.body.toLowerCase().includes(term)
-      );
-    }
-
-    if (this.showFavoritesPosts()) {
-      posts = posts.filter(p => this.store.isFavorite(p));
-    }
-
-    return posts;
+    return this.store.posts()
+      .filter(post => this.matchesTerm(post))
+      .filter(post => this.matchesFavorites(post));
   }
 
-  onFilterChanged(filter: { term: string; favorites: boolean }): void {
+  private matchesTerm(post: Post): boolean {
+    const term = this.filterTerm().toLowerCase();
+    return !term || post.title.toLowerCase().includes(term) || post.body.toLowerCase().includes(term);
+  }
+
+  private matchesFavorites(post: Post): boolean {
+    return !this.showFavoritesPosts() || this.store.isFavorite(post);
+  }
+
+  onFilterChanged(filter: { term: string; favorites: boolean; userId: number | "" }): void {
     this.filterTerm.set(filter.term);
     this.showFavoritesPosts.set(filter.favorites);
+    this.selectedUserId.set(Number(filter.userId));
+
+    filter.userId !== '' ? this.loadPosts(filter.userId) : this.loadPosts();
   }
 }
