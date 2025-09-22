@@ -1,1 +1,14 @@
-<p>post-details works!</p>
+@if (postDetails.isLoading()) {
+  <app-loader />
+}
+
+@if (postDetails.error()) {
+  <div class="text-red-600">Failed to load post details.</div>
+}
+
+@if (postDetails.value()) {
+  <div class="relative border p-4 rounded bg-gray-100 shadow hover:shadow-md transition-shadow cursor-pointer">
+    <h1 class="font-bold text-xl mb-2">{{ postDetails.value()?.title }}</h1>
+    <p>{{ postDetails.value()?.body }}</p>
+  </div>
+}
