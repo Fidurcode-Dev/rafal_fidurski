@@ -5,6 +5,12 @@
 }
 
 <app-filters (filterChanged)="onFilterChanged($event)"/>
+@if (!store.loading() && filteredPosts().length === 0) {
+  <p
+    class="text-gray-500 mt-4">
+    No posts matching your criteria
+  </p>
+}
 
 @if (store.loading()) {
   <app-loader/>

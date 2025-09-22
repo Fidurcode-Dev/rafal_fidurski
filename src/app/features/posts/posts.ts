@@ -56,6 +56,7 @@ export class Posts implements OnInit {
     this.showFavoritesPosts.set(filter.favorites);
     this.selectedUserId.set(Number(filter.userId));
 
-    filter.userId !== '' ? this.loadPosts(filter.userId) : this.loadPosts();
+    const userId = filter.userId !== '' ? Number(filter.userId) : null;
+    this.store.loadPosts(userId);
   }
 }
