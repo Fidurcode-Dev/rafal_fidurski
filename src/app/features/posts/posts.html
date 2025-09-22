@@ -4,6 +4,18 @@
   </div>
 }
 
+<app-filters (filterChanged)="onFilterChanged($event)"/>
+
 @if (store.loading()) {
   <app-loader/>
+}
+
+@if (!store.loading() && filteredPosts().length > 0) {
+  <ul class="space-y-3">
+    @for (post of filteredPosts(); track post.id) {
+      <li>
+        <app-post-item [post]="post"/>
+      </li>
+    }
+  </ul>
 }
