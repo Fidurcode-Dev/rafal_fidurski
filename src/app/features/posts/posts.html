@@ -11,11 +11,13 @@
 }
 
 @if (!store.loading() && filteredPosts().length > 0) {
-  <ul class="space-y-3">
-    @for (post of filteredPosts(); track post.id) {
-      <li>
-        <app-post-item [post]="post"/>
-      </li>
-    }
-  </ul>
+  <div [animate.enter]="enterClass()">
+    <ul class="space-y-3">
+      @for (post of filteredPosts(); track post.id) {
+        <li>
+          <app-post-item [post]="post"/>
+        </li>
+      }
+    </ul>
+  </div>
 }

@@ -24,6 +24,8 @@ export class Posts implements OnInit {
   filterTerm = signal('');
   showFavoritesPosts = signal(false);
 
+  enterClass = signal('enter-animation');
+
   ngOnInit(): void {
     this.store.loadPosts();
   }
