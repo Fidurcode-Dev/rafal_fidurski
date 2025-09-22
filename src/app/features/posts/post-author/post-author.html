@@ -1,0 +1,37 @@
+@if (!author()) {
+  <div class="text-gray-500 italic">Author information not available.</div>
+} @else {
+  <div
+    class="relative border p-4 rounded bg-gray-100 shadow hover:shadow-md transition-shadow cursor-pointer flex flex-col md:flex-col lg:flex-col gap-4">
+
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 class="text-xl font-bold text-gray-900">{{ author()?.name }}</h2>
+        <p class="text-gray-500 text-sm">@{{ author()?.username }}</p>
+      </div>
+      <div class="text-right">
+        <p class="text-gray-600 text-sm">{{ author()?.email }}</p>
+        <p class="text-gray-600 text-sm">{{ author()?.phone }}</p>
+      </div>
+    </div>
+
+    <div class="bg-gray-50 p-3 rounded border border-gray-100">
+      <h3 class="text-gray-700 font-semibold text-sm mb-1">Address</h3>
+      <p class="text-gray-600 text-sm">{{ author()?.address?.street }}, {{ author()?.address?.suite }}</p>
+      <p class="text-gray-600 text-sm">{{ author()?.address?.city }} - {{ author()?.address?.zipcode }}</p>
+      <p class="text-gray-600 text-sm">Geo: {{ author()?.address?.geo?.lat }}, {{ author()?.address?.geo?.lng }}</p>
+    </div>
+
+    <div class="bg-gray-50 p-3 rounded border border-gray-100">
+      <h3 class="text-gray-700 font-semibold text-sm mb-1">Company</h3>
+      <p class="text-gray-600 text-sm">{{ author()?.company?.name }}</p>
+      <p class="text-gray-500 text-sm italic">"{{ author()?.company?.catchPhrase }}"</p>
+      <p class="text-gray-500 text-sm">{{ author()?.company?.bs }}</p>
+    </div>
+
+
+    <div class="text-gray-700 text-sm">
+      <a class="text-blue-600 hover:underline" href="http://{{ author()?.website }}" target="_blank">{{ author()?.website }}</a>
+    </div>
+  </div>
+}

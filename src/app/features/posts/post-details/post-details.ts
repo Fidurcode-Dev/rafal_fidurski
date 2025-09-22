@@ -1,4 +1,4 @@
-import {Component, inject, input, InputSignal, Signal} from '@angular/core';
+import {Component, inject, input, InputSignal, signal, Signal} from '@angular/core';
 import { Loader } from '../../../shared/loader/loader';
 import {PostsService} from '../services/posts';
 import {HttpResourceRef} from '@angular/common/http';
@@ -6,11 +6,13 @@ import {Post} from '../interfaces/post.model';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {ActivatedRoute} from '@angular/router';
 import {map} from 'rxjs';
+import {PostAuthor} from '../post-author/post-author';
+import {Author} from '../interfaces/author.model';
 
 @Component({
   selector: 'app-post-details',
   standalone: true,
-  imports: [Loader],
+  imports: [Loader, PostAuthor],
   templateUrl: './post-details.html',
   styleUrls: ['./post-details.css'],
 })
@@ -22,5 +24,9 @@ export class PostDetails {
     { initialValue: '' }
   );
 
+  enterClass = signal('enter-animation');
+
   postDetails: HttpResourceRef<Post | undefined> = this.postsService.get(this.postId);
+
+  author: HttpResourceRef<Author | undefined> = this.postsService.getPostAuthor(this.postId);
 }
