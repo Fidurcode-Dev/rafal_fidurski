@@ -3,6 +3,7 @@ import {HttpClient, httpResource, HttpResourceRef, HttpResourceRequest} from '@a
 import {Observable} from 'rxjs';
 import {Post} from '../interfaces/post.model';
 import {Author} from '../interfaces/author.model';
+import {Comment} from '../interfaces/comment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,16 @@ export class PostsService {
     return httpResource<Author>(() => {
       const id = postId();
       return id
-        ? { url: `${this.API_URL}/users/${id}` } as HttpResourceRequest
+        ? { url: `${this.API_URL}users/${id}` } as HttpResourceRequest
+        : undefined;
+    });
+  }
+
+  getPostComments(postId: Signal<string | undefined>): HttpResourceRef<Comment[] | undefined> {
+    return httpResource<Comment[]>(() => {
+      const id = postId();
+      return id
+        ? {url: `${this.API_URL}comments?postId=${postId()}`} as HttpResourceRequest
         : undefined;
     });
   }

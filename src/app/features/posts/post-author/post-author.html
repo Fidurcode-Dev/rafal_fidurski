@@ -2,7 +2,7 @@
   <div class="text-gray-500 italic">Author information not available.</div>
 } @else {
   <div
-    class="relative border p-4 rounded bg-gray-100 shadow hover:shadow-md transition-shadow cursor-pointer flex flex-col md:flex-col lg:flex-col gap-4">
+    class="relative border p-4 rounded bg-gray-100 shadow hover:shadow-md transition-shadow cursor-pointer flex flex-col md:flex-col lg:flex-col gap-4" [animate.enter]="enterClass()">
 
     <div class="flex items-center justify-between">
       <div>

@@ -8,11 +8,13 @@ import {ActivatedRoute} from '@angular/router';
 import {map} from 'rxjs';
 import {PostAuthor} from '../post-author/post-author';
 import {Author} from '../interfaces/author.model';
+import {PostComment} from '../post-comment/post-comment';
+import {Comment} from '../interfaces/comment.model';
 
 @Component({
   selector: 'app-post-details',
   standalone: true,
-  imports: [Loader, PostAuthor],
+  imports: [Loader, PostAuthor, PostComment],
   templateUrl: './post-details.html',
   styleUrls: ['./post-details.css'],
 })
@@ -29,4 +31,6 @@ export class PostDetails {
   postDetails: HttpResourceRef<Post | undefined> = this.postsService.get(this.postId);
 
   author: HttpResourceRef<Author | undefined> = this.postsService.getPostAuthor(this.postId);
+
+  postComments: HttpResourceRef<Comment[] | undefined> = this.postsService.getPostComments(this.postId);
 }

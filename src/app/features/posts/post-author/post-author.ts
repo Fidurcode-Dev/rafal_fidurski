@@ -1,4 +1,4 @@
-import {Component, input, InputSignal} from '@angular/core';
+import {Component, input, InputSignal, signal} from '@angular/core';
 import {Author} from '../interfaces/author.model';
 
 @Component({
@@ -9,4 +9,6 @@ import {Author} from '../interfaces/author.model';
 })
 export class PostAuthor {
   author: InputSignal<Author | undefined> = input<Author | undefined>();
+
+  enterClass = signal('enter-animation');
 }
