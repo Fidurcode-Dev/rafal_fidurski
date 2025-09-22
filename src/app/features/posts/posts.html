@@ -1,1 +1,9 @@
-<p>posts works!</p>
+@if (store.message()) {
+  <div class="w-full bg-blue-100 border border-blue-300 text-blue-800 px-4 py-2 rounded-md shadow-sm mb-5">
+    {{ store.message() }}
+  </div>
+}
+
+@if (store.loading()) {
+  <app-loader/>
+}
