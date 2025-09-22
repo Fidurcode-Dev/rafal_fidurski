@@ -1,0 +1,21 @@
+@if (store.message()) {
+  <div class="w-full bg-blue-100 border border-blue-300 text-blue-800 px-4 py-2 rounded-md shadow-sm mb-5">
+    {{ store.message() }}
+  </div>
+}
+
+<app-filters (filterChanged)="onFilterChanged($event)"/>
+
+@if (store.loading()) {
+  <app-loader/>
+}
+
+@if (!store.loading() && filteredPosts().length > 0) {
+  <ul class="space-y-3">
+    @for (post of filteredPosts(); track post.id) {
+      <li>
+        <app-post-item [post]="post"/>
+      </li>
+    }
+  </ul>
+}
