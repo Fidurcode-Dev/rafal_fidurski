@@ -1,5 +1,5 @@
 import {inject, Injectable, Signal} from '@angular/core';
-import {HttpClient, httpResource, HttpResourceRef, HttpResourceRequest} from '@angular/common/http';
+import {HttpClient, HttpParams, httpResource, HttpResourceRef, HttpResourceRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Post} from '../interfaces/post.model';
 import {Comment} from '../interfaces/comment.model';
@@ -11,8 +11,12 @@ export class PostsService {
   private readonly http: HttpClient = inject(HttpClient);
   public readonly API_URL: string = 'https://jsonplaceholder.typicode.com/';
 
-  list(): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.API_URL}posts`);
+  list(userId?: number): Observable<Post[]> {
+    const url = userId != null
+      ? `${this.API_URL}posts?userId=${userId}`
+      : `${this.API_URL}posts`;
+
+    return this.http.get<Post[]>(url);
   }
 
   get(postId: Signal<string | undefined>): HttpResourceRef<Post | undefined> {

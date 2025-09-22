@@ -1,8 +1,6 @@
 import {Component, signal, WritableSignal, Output, EventEmitter} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {Observable} from 'rxjs';
 import {httpResource, HttpResourceRef} from '@angular/common/http';
-import {Author} from '../../features/posts/interfaces/author.model';
 
 interface User {
   id: number;

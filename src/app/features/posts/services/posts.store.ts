@@ -16,11 +16,11 @@ export const PostsStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
   withMethods((store, postService = inject(PostsService)) => ({
-    loadPosts(): void {
+    loadPosts(userId?: number | null): void {
       patchState(store, { loading: true });
 
       postService
-        .list()
+        .list(userId!)
         .pipe(
           tap((data: Post[]): void => patchState(store, { posts: data })),
           finalize((): void => patchState(store, { loading: false }))
