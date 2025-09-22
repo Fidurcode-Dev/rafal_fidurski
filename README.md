@@ -20,8 +20,6 @@ Aplikacja jest responsywna i działa na urządzeniach desktopowych oraz mobilnyc
 | `Post`          | Pojedynczy post w liście, z możliwością dodania do ulubionych. |
 | `PostFilter`    | Filtruje posty po tytule lub użytkowniku. |
 | `PostDetails`   | Wyświetla szczegóły pojedynczego posta. |
-| `FavoritesList` | Lista ulubionych postów. |
-| `FavoriteItem`  | Pojedynczy ulubiony post z możliwością usunięcia. |
 
 ---
 
