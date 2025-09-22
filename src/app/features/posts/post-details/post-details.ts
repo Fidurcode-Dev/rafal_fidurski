@@ -1,7 +1,7 @@
 import {Component, inject, input, InputSignal, signal, Signal} from '@angular/core';
 import { Loader } from '../../../shared/loader/loader';
 import {PostsService} from '../services/posts';
-import {HttpResourceRef} from '@angular/common/http';
+import {httpResource, HttpResourceRef} from '@angular/common/http';
 import {Post} from '../interfaces/post.model';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {ActivatedRoute} from '@angular/router';
@@ -30,7 +30,11 @@ export class PostDetails {
 
   postDetails: HttpResourceRef<Post | undefined> = this.postsService.get(this.postId);
 
-  author: HttpResourceRef<Author | undefined> = this.postsService.getPostAuthor(this.postId);
+  author: HttpResourceRef<Author | undefined> = httpResource<Author | undefined>(() => {
+    const post = this.postDetails.value();
+    if (!post) return undefined;
+    return { url: `${this.postsService.API_URL}users/${post.userId}` };
+  });
 
   postComments: HttpResourceRef<Comment[] | undefined> = this.postsService.getPostComments(this.postId);
 }
