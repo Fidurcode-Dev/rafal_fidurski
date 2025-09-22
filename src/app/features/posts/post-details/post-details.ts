@@ -1,4 +1,4 @@
-import {Component, inject, input, InputSignal, signal, Signal} from '@angular/core';
+import {Component, inject, signal, Signal} from '@angular/core';
 import { Loader } from '../../../shared/loader/loader';
 import {PostsService} from '../services/posts';
 import {httpResource, HttpResourceRef} from '@angular/common/http';
