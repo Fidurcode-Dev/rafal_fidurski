@@ -1,0 +1,10 @@
+<h2>Comments: </h2>
+@for (comment of (comments() ?? []); track comment.id) {
+  <div class="relative border rounded bg-gray-100 shadow hover:shadow-md transition-shadow cursor-pointer p-5 mt-4" [animate.enter]="enterClass()">
+    <div class="flex items-center justify-between">
+      <span class="font-semibold text-gray-800 text-sm">Comment #{{ comment.id }}</span>
+      <span class="text-gray-500 text-xs">{{ comment.email }}</span>
+    </div>
+    <p class="text-gray-700 text-sm leading-relaxed">{{ comment.body }}</p>
+  </div>
+}
